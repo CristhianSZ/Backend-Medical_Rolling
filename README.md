@@ -129,7 +129,7 @@ PORT=3001
 
 | Capa | Plataforma | URL |
 |---|---|---|
-| **Backend** | Vercel | *(URL del backend en Vercel)* |
+| **Backend** | Vercel | https://backend-medical-rolling.vercel.app/api |
 | **Frontend** | Vercel | https://frontend-medical-rolling.vercel.app |
 
 ---
