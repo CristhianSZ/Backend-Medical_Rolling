@@ -121,7 +121,53 @@ JWT_SECRET=tu_secreto_jwt
 PORT=3001
 ```
 
->  **Importante:** No subir el archivo `.env` al repositorio. Asegurarse de que esté incluido en `.gitignore`.
+| Variable | Descripción |
+|---|---|
+| `MONGODB_URI` | Cadena de conexión a MongoDB (Atlas o local). Ver sección [Configuración de MongoDB](#-configuración-de-mongodb). |
+| `JWT_SECRET` | Clave secreta para firmar y verificar tokens JWT. Puede ser cualquier string largo y aleatorio. |
+| `PORT` | Puerto en el que corre el servidor. Por defecto `3001`. |
+
+> **Importante:** No subir el archivo `.env` al repositorio. Asegurarse de que esté incluido en `.gitignore`.
+
+---
+
+##  Configuración de MongoDB
+
+Este proyecto utiliza **MongoDB** como base de datos. Podés conectarte usando **MongoDB Atlas** (recomendado, cloud gratuito) o una instancia **local**.
+
+### Opción A — MongoDB Atlas (recomendado)
+
+1. Crear una cuenta gratuita en [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
+2. Crear un nuevo **Cluster** (el tier gratuito M0 es suficiente)
+3. En **Database Access**, crear un usuario con permisos de lectura/escritura y anotá la contraseña
+4. En **Network Access**, agregar tu IP (o `0.0.0.0/0` para permitir cualquier IP en desarrollo)
+5. En el cluster, hacer clic en **Connect → Drivers** y copiar la URI de conexión
+
+La URI tendrá este formato:
+
+```
+mongodb+srv://<usuario>:<contraseña>@<cluster>.mongodb.net/<nombre-db>?retryWrites=true&w=majority
+```
+
+Reemplazar:
+- `<usuario>` y `<contraseña>` con las credenciales creadas en Database Access
+- `<nombre-db>` con el nombre que quieras darle a la base de datos (ej: `medical_rolling`)
+
+Ejemplo completo:
+
+```env
+MONGODB_URI=mongodb+srv://admin:miPassword123@cluster0.abc12.mongodb.net/medical_rolling?retryWrites=true&w=majority
+```
+
+### Opción B — MongoDB local
+
+Si tenés MongoDB instalado localmente, la URI es simplemente:
+
+```env
+MONGODB_URI=mongodb://localhost:27017/medical_rolling
+```
+
+> Las colecciones (`users`, `doctors`, `appointments`) **se crean automáticamente** por Mongoose al ejecutar el servidor por primera vez. No es necesario crearlas manualmente.
 
 ---
 
